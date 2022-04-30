@@ -11,12 +11,16 @@ print(pathtocsv)
 houses = []
 
 with open(pathtocsv, encoding = 'latin-1') as housefile:
-    reader_obj = csv.reader(housefile)
+    reader_obj = csv.reader(housefile, delimiter=',')
+    next(reader_obj)
+    houses = list(reader_obj)
+    """
     for row in reader_obj:
-        if reader_obj.line_num == 1:
-            continue  #skip first header row
+       # if reader_obj.line_num == 1:
+       #     continue  #skip first header row
         houses.append(row)
         print("row number: " + str(reader_obj.line_num))
-
+     """
 for i in range(10):
-    print(houses[i])
+    print(houses[i][0])
+    print(houses[i][1])
