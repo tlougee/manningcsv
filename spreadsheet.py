@@ -1,26 +1,18 @@
-import sys
 import csv
+import sys
 
-if len(sys.argv) < 2:
-    print('You need to include the path to the CSV file')
-    sys.exit()
+# returns a nested list of contents
+def read_csv_from_file(filename):
+    contents = []
+    with open(filename, newline='', encoding='latin-1') as raw_file:
+        reader = csv.reader(raw_file)
+        next(reader) # skip header line
+        for row in reader:
+            contents.append(row)
+    return contents
 
-pathtocsv = sys.argv[1]
-
-print(pathtocsv)
-houses = []
-
-with open(pathtocsv, encoding = 'latin-1') as housefile:
-    reader_obj = csv.reader(housefile, delimiter=',')
-    next(reader_obj)
-    houses = list(reader_obj)
-    """
-    for row in reader_obj:
-       # if reader_obj.line_num == 1:
-       #     continue  #skip first header row
-        houses.append(row)
-        print("row number: " + str(reader_obj.line_num))
-     """
-for i in range(10):
-    print(houses[i][0])
-    print(houses[i][1])
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        contents = read_csv_from_file(sys.argv[1])
+    else:
+        print("Needs a spreadhsheet file")
